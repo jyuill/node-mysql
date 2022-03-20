@@ -36,7 +36,7 @@ var mysql_node = require('mysql');
 var connection = mysql_node.createConnection({
     host: 'localhost',
     user: 'nodeuser',
-    password: '',
+    password: 'password',
     database: 'node_js_test'
 });
 
@@ -116,5 +116,54 @@ var add_user = connection.query(qry, person, function(err, result){
 }); 
 // console shows actual query
 console.log(add_user.sql);
+
+// MULTIPLE INSERT
+// hand-coded example - works with query and connection below
+// create array of arrays
+/*var data = [
+    ['cpow@pewpew.ca','2018-09-01 03:45:32'], 
+    ['denby@derby.com', '2021-06-21 04:33:22'],
+    ['covid@pandemic.com', '2021-03-13 17:30:01']
+];*/
+
+// using FAKER
+var data = [
+    [faker.internet.email(), faker.date.past()],
+    [faker.internet.email(), faker.date.past()],
+    [faker.internet.email(), faker.date.past()]
+];
+
+var qry = 'INSERT INTO users (email, created_at) VALUES ?';
+connection.query(qry, [data], function(err, result){
+    console.log(err);
+    console.log(result);
+})
+
+// SCALE UP
+// pushing variable values to data variable
+var data=[];
+data.push([
+    faker.internet.email(),
+    faker.date.past()
+])
+var qry = 'INSERT INTO users (email, created_at) VALUES ?';
+connection.query(qry, [data], function(err, result){
+    console.log(err);
+    console.log(result);
+})
+// LOOP!
+var data=[];
+for(var i = 0; i<20; i++){
+    data.push([
+        faker.internet.email(),
+        faker.date.past()
+    ])
+}
+
+var qry = 'INSERT INTO users (email, created_at) VALUES ?';
+connection.query(qry, [data], function(err, result){
+    console.log(err);
+    console.log(result);
+})
 
 connection.end();
