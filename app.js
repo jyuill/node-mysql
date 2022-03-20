@@ -57,5 +57,64 @@ connection.query(qry, function (error, results, fields){
     console.log(results[0].now);
 });
 
+// SELECT from db
+var qry='SELECT * FROM users;'
+connection.query(qry, function(error, results, fields){
+    if (error) throw error;
+    console.log(results);
+});
+
+// COUNT number of rows in db
+var qry='SELECT COUNT(*) AS total FROM users;'
+connection.query(qry, function(error, results, fields){
+    if (error) throw error;
+    console.log(results[0].total);
+});
+
+// INSERT new user
+var qry='INSERT INTO users (email) VALUES ("bmarley@ymail.com")';
+// (comment out to avoid duplicate entry fail for primary key)
+/*
+connection.query(qry, function(error, results, fields){
+    if (error) throw error;
+    console.log(results);
+});
+*/
+
+// DYNAMICALLY INSERT users
+var person = {email: 'stevej@apple.com'};
+var qry = 'INSERT INTO users SET ?'
+// (comment out to avoid duplicate entry fail for primary key)
+/* 
+connection.query(qry, person, function(err, result){
+    if (err) throw error;
+    console.log(result);
+}); 
+*/
+
+// INSERT using FAKER (loaded above)
+var person = {email: faker.internet.email()};
+var qry = 'INSERT INTO users SET ?'
+
+connection.query(qry, person, function(err, result){
+    if (err) throw error;
+    console.log(result);
+}); 
+
+// INSERT with date from faker
+var person = {email: faker.internet.email(),
+            created_at: faker.date.past()
+};
+// shows the raw data input from faker - with date format incompatible with javascript
+console.log(person);
+
+var qry = 'INSERT INTO users SET ?'
+// set connection to variable
+var add_user = connection.query(qry, person, function(err, result){
+    if (err) throw error;
+    console.log(result);
+}); 
+// console shows actual query
+console.log(add_user.sql);
 
 connection.end();
