@@ -45,8 +45,9 @@ app.get("/db", function(req, res){
     var q = "SELECT COUNT(*) AS count FROM users;";
     connection.query(q, function(err, results){
         if(err) throw err;
-        console.log(results[0]);
-    });
-    // respond with count
+        console.log(results[0].count);
+        var count = results[0].count;
+        // respond with count
     res.send("we have " + count + " users in database.");
+    });
 });
