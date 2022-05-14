@@ -13,7 +13,7 @@ app.listen(8080, function(){
 
 /* simple message for home page '/'; html tags are optional */
 app.get("/", function(req, res){
-    res.send("<h1>hello from my app hola!</h1> <h2>thanks for visiting!</h2>");
+    res.send("<h1>hello from my app hola!</h1> <h2>thanks for visiting!</h2><a href='/db'>check database</a>");
 });
 
 /* another page: /joke */
