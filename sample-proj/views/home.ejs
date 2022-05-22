@@ -1,0 +1,16 @@
+<link rel="stylesheet" href="/app.css">
+
+<em>This is the 'home.ejs'</em>
+<h1>JOIN US!</h1>
+
+<h2>My sample app</h2>
+<p class="lead">Enter email to join <strong><%=data%></strong> others on our waitlist. 
+    NOT a cult!
+</p>
+<form method="POST", action="/register">
+    <input type="text" 
+    name="email" 
+    class="form" 
+    placeholder="Enter your email">
+    <button>Join today</button>
+</form>
