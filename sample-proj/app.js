@@ -7,6 +7,7 @@ var app = express();
 /* set app to view engine ejs */
 app.set("view engine","ejs")
 app.use(bodyParser.urlencoded({extended: true}));
+// identify folder for css files etc
 app.use(express.static(__dirname + "/public"));
 
 
